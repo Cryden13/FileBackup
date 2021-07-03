@@ -8,6 +8,7 @@ except ImportError:
     run(['py', '-m', pth.name], cwd=pth.parent)
 
 
+
 def main():
     pths = Path('files.txt')
     for bck_to, bck_from in BACKUPS.items():

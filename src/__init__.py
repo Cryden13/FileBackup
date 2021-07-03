@@ -1,3 +1,5 @@
 from .variables import *
 
-__all__ = ['BACKUPS', 'IGNORE', 'Path']
+__all__ = ['BACKUPS',
+           'IGNORE',
+           'Path']
