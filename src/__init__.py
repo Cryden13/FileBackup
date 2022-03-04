@@ -1,5 +1,7 @@
+from .backup import backup
 from .variables import *
 
-__all__ = ['BACKUPS',
-           'IGNORE',
-           'Path']
+__all__ = ['backup',
+           'BACKUPS',
+           'EXCLUDE',
+           'THREADS']

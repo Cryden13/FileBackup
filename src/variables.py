@@ -2,7 +2,7 @@ from pathlib import Path
 
 from configparser import (
     ExtendedInterpolation as ExtInterp,
-    ConfigParser as ConfigParser
+    ConfigParser
 )
 
 
@@ -12,9 +12,15 @@ cfg.optionxform = str
 cfg.read_file(open(Path(__file__).parent.with_name('config.ini')))
 
 
-fol = Path(cfg.get('Default', 'backup_folder'))
+THREADS = int(cfg.get('Default', 'threads'))
+
+fol = Path(cfg.get('Default', 'backup_parent_folder'))
 
 BACKUPS = {fol.joinpath(f'{f}.7z'):
-           [Path(p) for p in pth.strip().split('\n')]
+           [str(p) for p in pth.strip().split('\n')]
            for (f, pth) in cfg.items('Backup Paths')}
-IGNORE = [f"-xr!{p}" for p in cfg.options('Ignore')]
+
+EXCLUDE = Path(__file__).with_name('exclude.txt')
+EXCLUDE.write_text('\n'.join([str(s) for s in cfg.options('Exclude') if s]))
+
+__all__ = ['THREADS', 'BACKUPS', 'EXCLUDE']
