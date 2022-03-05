@@ -12,7 +12,9 @@ cfg.optionxform = str
 cfg.read_file(open(Path(__file__).parent.with_name('config.ini')))
 
 
-THREADS = int(cfg.get('Default', 'threads'))
+THREADS = int(cfg.get('Default', 'threads', fallback=2))
+SUBTHREADS = int(cfg.get('Default', 'subthreads', fallback=2))
+COMP_LVL = int(cfg.get('Default', 'compression_lvl'))
 
 fol = Path(cfg.get('Default', 'backup_parent_folder'))
 
@@ -21,6 +23,10 @@ BACKUPS = {fol.joinpath(f'{f}.7z'):
            for (f, pth) in cfg.items('Backup Paths')}
 
 EXCLUDE = Path(__file__).with_name('exclude.txt')
-EXCLUDE.write_text('\n'.join([str(s) for s in cfg.options('Exclude') if s]))
+EXCLUDE.write_text('\n'.join([s for s in cfg.options('Exclude') if s]))
 
-__all__ = ['THREADS', 'BACKUPS', 'EXCLUDE']
+__all__ = ['THREADS',
+           'SUBTHREADS',
+           'COMP_LVL',
+           'BACKUPS',
+           'EXCLUDE']
