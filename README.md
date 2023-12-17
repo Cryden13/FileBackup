@@ -31,5 +31,20 @@ change the parameters in config.ini to the preferred values, then run the script
                 </dl>
             </td>
         </tr>
+        <tr>
+            <td align="center">2.0</td>
+            <td>
+                <dl>
+                    <dt>new</dt>
+                    <ul>
+                        <li>console can be set to move left or right from its original location</li>
+                        <li>automatically picks between add and update 7zip options</li>
+                        <li>completion window now has a timeout</li>
+                        <li>input dialog has been updated</li>
+                        <li>updated to allow 5 hevc_nvenc threads</li>
+                    </ul>
+                </dl>
+            </td>
+        </tr>
     </tbody>
 </table>

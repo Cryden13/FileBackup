@@ -1,5 +1,5 @@
-from winnotify import InputDialog as InDlg
-from concurrent.futures import ThreadPoolExecutor
+from PyQt5.QtWidgets import QApplication
+from sys import argv
 
 try:
     from .src import *
@@ -13,16 +13,11 @@ except ImportError:
 
 def main():
     all_files = list(BACKUPS.keys())
-    ans = InDlg.multiinput(
-        title="Running Backup",
-        message="Select archives to update:",
-        input_fields=[(f.stem, InDlg.ChWgt.checkbox(default=True))
-                      for f in all_files]
-    )
-    if ans:
-        files = [f for f in all_files if ans.get(f.stem)]
-        with ThreadPoolExecutor(max_workers=THREADS) as ex:
-            ex.map(backup, files)
+    _ = QApplication(argv)
+    ans = InputDialog(all_files).out
+    files = [f for f in all_files if f in ans]
+    for i, file in enumerate(files):
+        backup(file, len(files), i)
     EXCLUDE.unlink()
 
 
